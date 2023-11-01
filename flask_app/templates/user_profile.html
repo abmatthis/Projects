@@ -74,8 +74,8 @@
                             <input type="hidden" name="id" value="{{ comment.comment_id }}">
                             <input type="hidden" name="commenti_id" value="{{ user.id }}">
                             <br>
-                            <button type="reset" class="comment_btn" onclick="hide_comment_form('comment_body_{{comment.comment_id}}'); show_comment_body('update_form_{{comment.comment_id}}'); show_edit_btn('edit_comment_btn_{{comment.comment_id}}') ">Cancel</button>
-                            <button type="submit" class="comment_btn">Edit</button>
+                            <button type="reset" class="comment_btn btn" onclick="hide_comment_form('comment_body_{{comment.comment_id}}'); show_comment_body('update_form_{{comment.comment_id}}'); show_edit_btn('edit_comment_btn_{{comment.comment_id}}') ">Cancel</button>
+                            <button type="submit" class="comment_btn btn">Edit</button>
                             <br>
                         </form>
                     {% endif %}
