@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+    <title>LFG registration</title>
+</head>
+<body>
+    <div id="Login_and_Registration_wrapper">
+        <h1>LFG</h1>
+
+        <div id="forms">
+            <div id="registration">
+                <h2>Create an Account</h2>
+                {% with messages = get_flashed_messages(category_filter=["registration"]) %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p id="flash">{{message}}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                <form action="/register" method="post" id="register">
+                    <label>
+                        Userame:
+                        <input type="text" name="username" placeholder="Minimum 2 charaters" required>
+                    </label>
+                    <label>
+                        Email:
+                        <input type="email" name="email"  placeholder="example@email.com" required>
+                    </label>
+                    <label>
+                        Password:
+                        <input type="password" name="password" placeholder="Minimum 8 charaters" required>
+                    </label>
+                    <label>
+                        Confirm Password:
+                        <input type="password" name="confirm_password" placeholder="Must match password" required> 
+                    </label>
+                    <div class="button">
+                        <button type="submit">Create Account!</button>
+                    </div> 
+                    <a href="/returning_user"><p>Already have and Account?</p></a>
+                </form> 
+                <br>
+                By Creating an account, you agree to our User Agreement and acknowledge reading our User Privacy Notice.
+            </div>
+        </div>
+    </div>
+</body>
+</html>

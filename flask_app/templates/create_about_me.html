@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+    <title>about_me</title>
+
+</head>
+<body>
+    <div id="wrapper">
+        <div id="navbar">
+            <h1>LFG</h1> 
+            <button class="btn" onclick="window.location.href='/user_profile/{{session.user_id }}'">My Profile</button>
+            <button class="btn" onclick="window.location.href='/logout'">Sign Out</button>
+        </div>
+        <h1 id="games_selecter_header">Just a bit more...</h1>
+        <br>
+        <div>
+            {% with messages = get_flashed_messages(category_filter=["about_me"]) %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p id="flash">{{message}}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            <form action="/about_me/process" method="post" id="games_selecter_form">
+                <textarea id="comment_text_area" name="about_me" ></textarea>
+                <input type="hidden" name="id" value="{{session.user_id }}">
+                
+                <div id="game_selector_nav">
+                    <button type="submit" id="games_selecter_btns">Continue</button>
+                    <br>
+                    <a href="/user_profile/{{ session.user_id }}" id="games_selecter_skip">skip</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+    <title>{{ session['username'] }}'s  Lfg Profile</title>
+</head>
+<body>
+    <div id="wrapper">
+
+        <div id="navbar">
+            <div>
+                <img src="/static/images/logo.png" alt="LFG loge.png">
+            </div>
+            <div id="navbar-content">
+                <button class="btn" onclick="window.location.href='/user_profile/{{session.user_id }}'">Find Gamers!</button>
+                <button class="btn" onclick="window.location.href='/user_profile/{{session.user_id }}'">My Profile</button>
+                <button class="btn" onclick="window.location.href='/logout'">Sign Out</button>
+            </div>
+        </div>
+
+        <div id="main">
+            <div id="Profile_column">
+                <div id="profile_picture">
+                    <img src="/static/images/profile_pic.jpg" alt="profile pic">
+                    {% if user.id == session['user_id'] %}
+                        <button class="btn">Upload Picture</button>
+                    {% endif %}
+
+                </div>
+                {% with messages = get_flashed_messages(category_filter=["registration"]) %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p id="flash">{{message}}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                <form action="" method="post" id="user_info_update">
+                    <label>
+                        Userame:
+                        <input type="text" name="username" placeholder="{{user.username}}" required>
+                    </label>
+                    <label>
+                        Email:
+                        <input type="email" name="email"  placeholder="{{user.email}}" required>
+                    </label>
+                    <label>
+                        New Password:
+                        <input type="password" name="password" placeholder="Minimum 8 charaters" required>
+                    </label>
+                    <label>
+                        Confirm Password:
+                        <input type="password" name="confirm_password" placeholder="Must match password" required> 
+                    </label>
+                    <br><br>
+                    <div class="button">
+                        <button type="submit" class="btn">Update Account information</button>
+                    </div> 
+                </form> 
+
+            </div>
+            <div id="contents">
+                <h2>About Me</h2>
+                <form action="/about_me/process" method="post">
+                    <textarea id="comment_text_area" name="about_me" >{{ user.about_me }}</textarea>
+                    <input type="hidden" name="id" value="{{session.user_id }}">
+                    <button type="submit" class="btn">Update About Me</button>
+                </form>
+                <hr>
+                <br>
+
+                <h2>I Play . . .</h2>
+                <form id="games_selecter_form">
+                    {% set unique_game_ids = [] %}
+                    {% for game in games %}
+                        {% if game.id not in unique_game_ids %}
+                            <div class="edit_games_selecter">
+                                <img src="/static/images/games/{{ game.image }}" alt="{{ game.name }}" id="edit_game_image">
+                                <input type="checkbox" name="game_id" value="{{ game.id }}" {% if game.user_id == session.user_id %} checked {% endif %}>
+                                <input type="hidden" name="user_id" value="{{ session['user_id'] }}">
+                            </div>
+                            {% set _ = unique_game_ids.append(game.id) %}
+                        {% endif %}
+                    {% endfor %}
+                    <button type="submit" class="btn">Confirm Games</button>
+                </form>
+
+                <h2>I Play On . . .</h2>
+                <form id="consoles_selecter_form">
+                    {% set unique_console_ids = [] %}
+                        {% for console in consoles %}
+                            {% if console.id not in unique_console_ids %}
+                            <div class="edit_consoles_selecter">
+                                <img src="/static/images/consoles/{{ console.image }}" alt="{{ console.name }}" id="edit_console_image">
+                                <input type="checkbox" name="console_id" value="{{ console.id }}" {% if console.user_id == session.user_id %} checked {% endif %}>
+                                <input type="hidden" name="user_id" value="{{ session['user_id'] }}">
+                            </div>
+                            {% set _ = unique_console_ids.append(console.id) %}
+                        {% endif %}
+                    {% endfor %}
+                    <button type="submit" class="btn">Confirm Consoles</button>
+                </form>
+                <hr>
+                <hr>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+

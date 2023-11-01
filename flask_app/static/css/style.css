@@ -1,0 +1,259 @@
+html {
+    background-color: #4A525A;
+    color: #3E78B2;
+}
+#wrapper{
+    width: 1080px;
+    margin: 0px auto;
+    /* text-align: center; */
+}
+#Login_and_Registration_wrapper h1{
+    font-size: 50px;
+    text-align: center;
+}
+
+#forms{
+    display: flex;
+    margin: 0px auto;
+    justify-content: center;
+}
+#registration h2, #login h2{
+    font-size: 40px;
+    margin-top: 5px;
+}
+#registration, #login{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 50px;
+    margin-right: 50px;
+    border: #004BA8;
+    background-color: #24272B;
+    border-style: solid;
+    padding: 40px;
+    width: 400px;
+}
+#register, #signin{
+    display: flex;
+    flex-direction: column;
+    font-size: small;
+    font-weight: bold;
+    text-align: right;
+    justify-content: space-between;
+    align-items: end;
+    margin-right: 150px;
+    width: 400px;
+    height: 200px;
+}
+.button{
+    display: flex;
+    width: 170px;
+    justify-content: space-between;
+}
+
+/* headers */
+#header{
+    display: flex;
+    justify-content: space-between;
+}
+
+/*nav */
+#navbar{
+    display: flex;
+    justify-content: space-between;
+    width: 1080px;
+    align-items: center;
+    color: white;
+    height: 80px;
+    padding: 0px 10px;
+    background-color: rgb(105, 105, 105);
+
+}
+
+#navbar-content{
+    color: rgb(255, 255, 255);
+    height: 70px;
+    margin-bottom: 0px;
+    margin-left: 10px;
+    display: flex;
+    width: 300px;
+    justify-content: space-between;
+    align-items: center;
+}
+.nav-links{
+    width: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    text-decoration: none; 
+}
+.btn{
+    border-radius: 10px;
+    background-color: rgb(0, 153, 255);
+    color: rgb(255, 255, 255);
+}
+/* console and games select */
+#consoles_selecter_header, #games_selecter_header{
+    font-size: 55px;
+}
+#console_image{
+    height: 300px;
+    width: 300px;
+}
+
+#consoles_selecter_form, #games_selecter_form{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.consoles_selecter, .games_selecter{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 540px;
+}
+.games_selecter{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 360px;
+    margin-bottom: 30px;
+}
+#console_selector_nav, #game_selector_nav{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+#consoles_selecter_btns, #games_selecter_btns{
+    font-size: 45px ;
+    width: 500px;
+    border-radius: 20px;
+}
+#consoles_selecter_skip, #games_selecter_skip{
+    font-size: 25px ;
+}
+
+
+/* profile_page */
+#main{
+    display: flex;
+    justify-content: space-between;
+}
+
+#Profile_column{
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+#contents{
+    width: 820px;
+}
+
+#contents h2{
+    font-size: 30px;
+    margin-bottom: 0px;
+    
+}
+#contents h3{
+    font-size: 23px;
+    margin: 0px;
+
+}
+#contents em{
+    font-size: 12px;
+}
+#contents strong{
+    font-size: 20px;
+
+}
+
+#contents p{
+    font-size: 18px;
+}
+
+#profile_picture{
+    margin-top: 24.9px;
+    margin-bottom: 100px;
+    width: 150px;
+    height: 150px;
+    text-align: center;
+}
+
+#profile_picture p{
+    margin: 0;
+    margin-top: 5px;
+    font-size: 30px;
+}
+
+.hiddendisplay{
+    display: none;
+}
+
+#profile_game_image{
+    height: 90px;
+    width: 90px;
+    margin: 10px;
+    margin-top: 0px;
+}
+
+
+#comment_text_area{
+width: 100%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+}
+
+.comment_btn{
+    float: right
+}
+
+#following_box{
+    width: 150px;
+    background-color: aqua;
+    height: 500px;
+}
+
+/* Edit Profile */
+#edit_game_image{
+    height: 90px;
+    width: 90px;
+    margin: 10px;
+    margin-top: 0px;
+}
+
+.edit_games_selecter{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 120px;
+}
+
+.edit_consoles_selecter{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#edit_console_image{
+    height: 90px;
+    width: 90px;
+    margin: 50px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+#user_info_update{
+    width: 200px;
+}

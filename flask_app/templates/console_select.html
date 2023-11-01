@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+    <title>Console Select</title>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="navbar">
+            <h1>LFG</h1> 
+            <button class="btn" onclick="window.location.href='/user_profile/{{session.user_id }}'">My Profile</button>
+            <button class="btn" onclick="window.location.href='/logout'">Sign Out</button>
+        </div>
+        <h1 id="consoles_selecter_header">What consoles do you play?</h1>
+        <br>
+        <div>
+            <form action="/select/console/process" method="post" id="consoles_selecter_form">
+                {% for console in consoles %}
+                <div class="consoles_selecter">
+                    <img src="/static/images/consoles/{{ console.image }}" alt="{{ console.name }}" id="console_image">
+                    <input type="checkbox" name="console_id" value="{{ console.id }}">
+                    <input type="hidden" name="user_id" value="{{ session['user_id'] }}">
+
+                </div>
+                {% endfor%}
+                <div id="console_selector_nav">
+                    <br><br>
+                    <button type="submit" id="consoles_selecter_btns">Continue</button>
+                    <br>
+                    <a href="/select/games" id="consoles_selecter_skip">skip</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+
