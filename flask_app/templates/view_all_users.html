@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+    <title>Find Gamers</title>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="navbar">
+            <div>
+                <img src="/static/images/logo.png" alt="LFG loge.png">
+            </div>
+            <div id="navbar-content">
+                {% if session.user_id %}
+                <button class="btn" onclick="window.location.href='/user_profile/{{session.user_id }}'">My Profile</button>
+                <button class="btn" onclick="window.location.href='/edit/user_profile/{{session.user_id }}'">Account Settings</button>
+                <button class="btn" onclick="window.location.href='/logout'">Sign Out</button>
+                {% else %}
+                <button class="btn" onclick="window.location.href='/returning_user'">Sign In</button>
+                {% endif %}
+            </div>
+        </div>
+        <hr>
+
+        <h1 id="consoles_selecter_header">All Gamers</h1>
+
+        {% for user in users %}
+        {% if user.id != session.user_id %}
+        <div class="profiles_display" onclick="window.location.href='/user_profile/{{ user.id }}'" onmouseover="hover_border(this)" onmouseleave="unhover_border(this)">
+            <div id="blah">
+                <img src="/static/images/profile_pic.jpg" alt="profile pic" class="profile_pics">
+                <h2>{{ user.username }}</h2>
+            </div>
+            <div id="games_and_consoles">
+                <div>
+                {% for game in games %}
+                    {% if user.id == game.user_id %}
+                    <img src="/static/images/games/{{ game.image }}" alt="{{ game.name }}" id="all_gamers_game_image">
+                    {% endif %}
+                {% endfor %}
+                </div>
+                <div id="all_gamers_console">
+                    {% for console in consoles %}
+                    {% if user.id == console.user_id %}
+                    <img src="/static/images/consoles/{{ console.image }}" alt="{{ console.name }}" id="all_gamers_console_image">
+                    {% endif %}
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+        <hr>
+        {% endif %}
+        {% endfor %}
+    </div>
+</body>
+</html>

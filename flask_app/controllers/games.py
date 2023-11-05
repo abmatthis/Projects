@@ -16,7 +16,7 @@ def game_select():
 
 # Update Users Controller
 @app.route('/select/game/process', methods = ['POST'])
-def update_users_games():
+def add_users_games():
     if 'user_id' in session:
         games_list = request.form.getlist('game_id')
         
@@ -27,4 +27,19 @@ def update_users_games():
                 }
             game.Game.register_users_games(data)
         return redirect('/add/about_me')
+    return redirect('/')
+
+@app.route('/update/game/process', methods = ['POST'])
+def update_users_games():
+    if 'user_id' in session:
+        game.Game.delete_users_games(request.form.get('user_id'))
+        games_list = request.form.getlist('game_id')
+        
+        for game_id in games_list:
+            data ={
+                'user_id' : request.form.get('user_id'),
+                'game_id' : game_id
+                }
+            game.Game.register_users_games(data)
+        return redirect(f'/edit/user_profile/{session["user_id"]}')
     return redirect('/')

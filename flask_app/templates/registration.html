@@ -10,9 +10,21 @@
 </head>
 <body>
     <div id="Login_and_Registration_wrapper">
-        <h1>LFG</h1>
+        <h1>Welcome to LFG</h1>
 
         <div id="forms">
+            <div id="mission_statment">
+                <p>"At <span class="span_color">LFG (Looking For Group)</span>, our mission is to empower gamers by providing 
+                    a dynamic and inclusive platform where players of all backgrounds, interests, 
+                    and skill levels can effortlessly connect, collaborate, and embark on epic gaming 
+                    adventures together. We are committed to fostering a vibrant and supportive gaming 
+                    community that transcends boundaries, enabling friendships to form, teamwork to flourish, 
+                    and memorable experiences to be shared. With <span class="span_color">LFG</span>, we aim to be the catalyst for extraordinary 
+                    gaming moments, helping players from around the world find their perfect group and take their 
+                    gaming journeys to new heights. We believe that every gamer, no matter where they are or what 
+                    they play, should have the opportunity to unite, strategize, and conquer as part of a community 
+                    that celebrates the joy of gaming." <br>- chatgpt</p>
+            </div>
             <div id="registration">
                 <h2>Create an Account</h2>
                 {% with messages = get_flashed_messages(category_filter=["registration"]) %}
@@ -24,7 +36,7 @@
                 {% endwith %}
                 <form action="/register" method="post" id="register">
                     <label>
-                        Userame:
+                        Username:
                         <input type="text" name="username" placeholder="Minimum 2 charaters" required>
                     </label>
                     <label>

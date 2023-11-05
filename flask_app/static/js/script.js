@@ -29,3 +29,19 @@ function show_update_form(id){
 function hide_add_comment(e){
     e.style.display = "none"
 }
+
+
+
+function toggleCheckbox(id, consoles_selecter_id) {
+    var checkbox = document.getElementById(id);
+    checkbox.checked = !checkbox.checked; 
+
+    if (checkbox.checked){
+        document.getElementById(consoles_selecter_id).style.borderStyle = "solid";
+        document.getElementById(consoles_selecter_id).style.borderColor = "#51d6ff";
+        document.getElementById(consoles_selecter_id).style.borderRadius = "15px";
+    }else{
+        document.getElementById(consoles_selecter_id).style.borderStyle = "";
+        document.getElementById(consoles_selecter_id).style.borderColor = "";
+    }
+}

@@ -9,7 +9,17 @@ class Console:
         self.name = data['name']
         self.image = data['image']
 
-    # Read Users Models
+    # Create Console Methods
+    @classmethod
+    def register_users_console(cls, form):
+        query = """
+        INSERT INTO users_has_consoles (user_id, console_id) 
+        VALUES (%(user_id)s, %(console_id)s)
+        ;"""
+        results = connectToMySQL(cls.db).query_db(query, form)
+        return results
+
+    # Read Console Models
     @classmethod
     def get_consoles(cls):
         query = """
@@ -18,14 +28,16 @@ class Console:
         ;"""
         results = connectToMySQL(cls.db).query_db(query)
         return results
-    
+        
     @classmethod
-    def register_users_console(cls, form):
+    def get_consoles_for_users(cls):
         query = """
-        INSERT INTO users_has_consoles (user_id, console_id) 
-        VALUES (%(user_id)s, %(console_id)s)
+        SELECT *
+        FROM users 
+        JOIN users_has_consoles ON users.id = users_has_consoles.user_id
+        JOIN consoles ON  users_has_consoles.console_id = consoles.id  
         ;"""
-        results = connectToMySQL(cls.db).query_db(query, form)
+        results = connectToMySQL(cls.db).query_db(query)
         return results
     
     @classmethod
@@ -44,6 +56,14 @@ class Console:
         """
         results = connectToMySQL(cls.db).query_db(query, data)
         return results
+    
+    # Delete Consoles Models
+    @classmethod
+    def delete_users_consoles(cls, id):
+        data = {"user_id" : id}
+        query = "DELETE FROM users_has_consoles WHERE user_id = %(user_id)s;"
+        connectToMySQL(cls.db).query_db(query, data)
+        return
 
 # Easy data repolulation after drop table
 # INSERT INTO `lfg_schema`.`consoles` (`name`, `image`) VALUES ('ps5', 'ps5.png');

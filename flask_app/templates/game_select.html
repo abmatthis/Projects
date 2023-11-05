@@ -12,18 +12,21 @@
 <body>
     <div id="wrapper">
         <div id="navbar">
-            <h1>LFG</h1> 
-            <button class="btn" onclick="window.location.href='/user_profile/{{session.user_id }}'">My Profile</button>
-            <button class="btn" onclick="window.location.href='/logout'">Sign Out</button>
+            <img src="/static/images/logo.png" alt="LFG loge.png">
+            <div id="navbar-content">
+                <button class="btn" onclick="window.location.href='/user_profile/{{session.user_id }}'">My Profile</button>
+                <button class="btn" onclick="window.location.href='/logout'">Sign Out</button>
+            </div>
         </div>
+        <hr>
         <h1 id="games_selecter_header">What games do you play?</h1>
         <br>
         <div>
             <form action="/select/game/process" method="post" id="games_selecter_form">
                 {% for game in games %}
-                <div class="games_selecter">
+                <div id="games_selecter_{{ game.id }}" class="games_selecter"  onclick="toggleCheckbox('hidden_checkbox_{{ game.id }}', 'games_selecter_{{ game.id }}')">
                     <img src="/static/images/games/{{ game.image }}" alt="{{ game.name }}" id="game_image">
-                    <input type="checkbox" name="game_id" value="{{ game.id }}">
+                    <input id="hidden_checkbox_{{ game.id }}" class="checkbox" type="checkbox" name="game_id" value="{{ game.id }}">
                     <input type="hidden" name="user_id" value="{{ session['user_id'] }}">
 
                 </div>

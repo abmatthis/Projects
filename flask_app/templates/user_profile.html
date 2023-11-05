@@ -16,33 +16,40 @@
                 <img src="/static/images/logo.png" alt="LFG loge.png">
             </div>
             <div id="navbar-content">
-                <button class="btn" onclick="window.location.href='/user_profile/{{session.user_id }}'">Find Gamers!</button>
+                <button class="btn" onclick="window.location.href='/find/gamers'">Find Gamers!</button>
                 {% if user.id != session['user_id'] %}
-                <button class="btn" onclick="window.location.href='/user_profile/{{session.user_id }}'">My Profile</button>
+                    {% if session['user_id'] %}
+                        <button class="btn" onclick="window.location.href='/user_profile/{{session.user_id }}'">My Profile</button>
+                    {% endif %}
                 {% else %}
-                <button class="btn" onclick="window.location.href='/edit/user_profile/{{session.user_id }}'">Account Settings</button>
+                        <button class="btn" onclick="window.location.href='/edit/user_profile/{{session.user_id }}'">Account Settings</button>
                 {% endif %}
-                <button class="btn" onclick="window.location.href='/logout'">Sign Out</button>
+
+                {% if session['user_id'] %}
+                    <button class="btn" onclick="window.location.href='/logout'">Sign Out</button>
+                {% else %}
+                    <button class="btn" onclick="window.location.href='/returning_user'">Sign In</button>
+                    {% endif %}
             </div>
         </div>
+        <hr>
 
         <div id="main">
             <div id="Profile_column">
                 <div id="profile_picture">
                     <img src="/static/images/profile_pic.jpg" alt="profile pic">
                     {% if user.id == session['user_id'] %}
-                        <button>Upload Picture</button>
+                        <button class="btn" onclick="show_update_form('hidden_upload'); hide_edit_btn(this)" >Upload Picture</button>
+                        <form id="hidden_upload" method="post">
+                            <input  type = "file" name = "upload" accept = "image/*" />
+                        </form>
                     {% endif %}
                     <p>{{ user.username }}</p>
-                </div>
-                <div id="following_box">
-                    Following
-                    
                 </div>
             </div>
             <div id="contents">
                 <h2>About Me</h2>
-                {% if user.about_me != none  %}
+                {% if user.about_me != None  %}
                     <p>{{ user.about_me }}</p>
                 {% endif %}
                 <hr>
@@ -60,8 +67,8 @@
                     <hr>
                         <P><strong>{{ comment.commenter.username }}</strong> -- <em>{{ comment.created_at }}</em> 
                             {% if comment.commenter.id == session['user_id'] %}
-                                <button onclick="show_update_form('update_form_{{comment.comment_id}}'); hide_edit_btn(this); hide_comment_body('comment_body_{{comment.comment_id}}')" id="edit_comment_btn_{{comment.comment_id}}">Edit</button>
-                                <button onclick="window.location.href='/remove_comment/{{ comment.comment_id }}'">Delete</button>
+                                <button class="btn" onclick="show_update_form('update_form_{{comment.comment_id}}'); hide_edit_btn(this); hide_comment_body('comment_body_{{comment.comment_id}}')" id="edit_comment_btn_{{comment.comment_id}}">Edit</button>
+                                <button class="btn" onclick="window.location.href='/remove_comment/{{ comment.comment_id }}'">Delete</button>
                             {% endif %}
                             <br></P>
                         <p id="comment_body_{{comment.comment_id}}">{{ comment.body }} 
@@ -83,14 +90,16 @@
             
                 <hr>
                 <div>
-                    <button onclick="show_comment_form('comment_form'); hide_add_comment(this)" class="comment_btn">Add Comment</button>
+                    {% if session['user_id'] %}
+                    <button onclick="show_comment_form('comment_form'); hide_add_comment(this)" class="comment_btn btn">Add Comment</button>
+                    {% endif %}
 
                     <form action="/comment/process" id="comment_form" class="hiddendisplay" method="post">
                         <input type="hidden" name="commenter_id" value="{{ session['user_id'] }}">
                         <input type="hidden" name="commenti_id" value="{{ user.id }}">
                         <textarea id="comment_text_area" name="body"></textarea>
 
-                        <button type="submit" class="comment_btn">Send</button>
+                        <button class="btn" type="submit" class="comment_btn">Send</button>
                     </form>
                 </div>
             </div>

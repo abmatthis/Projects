@@ -38,6 +38,7 @@ class Comment:
         FROM comments 
         JOIN users ON users.id = comments.commenter_id
         JOIN users user2 On comments.commenti_id = user2.id 
+        ORDER BY comments.created_at ASC
         ;"""
         results = connectToMySQL(cls.db).query_db(query)
         comments = []

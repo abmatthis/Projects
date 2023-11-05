@@ -11,18 +11,21 @@
 <body>
     <div id="wrapper">
         <div id="navbar">
-            <h1>LFG</h1> 
-            <button class="btn" onclick="window.location.href='/user_profile/{{session.user_id }}'">My Profile</button>
-            <button class="btn" onclick="window.location.href='/logout'">Sign Out</button>
+            <img src="/static/images/logo.png" alt="LFG loge.png">
+            <div id="navbar-content">
+                <button class="btn" onclick="window.location.href='/user_profile/{{session.user_id }}'">My Profile</button>
+                <button class="btn" onclick="window.location.href='/logout'">Sign Out</button>
+            </div>
         </div>
+        <hr>
         <h1 id="consoles_selecter_header">What consoles do you play?</h1>
         <br>
         <div>
             <form action="/select/console/process" method="post" id="consoles_selecter_form">
                 {% for console in consoles %}
-                <div class="consoles_selecter">
+                <div id="consoles_selecter_{{ console.id }}" class="consoles_selecter" onclick="toggleCheckbox('hidden_checkbox_{{ console.id }}', 'consoles_selecter_{{ console.id }}')" >
                     <img src="/static/images/consoles/{{ console.image }}" alt="{{ console.name }}" id="console_image">
-                    <input type="checkbox" name="console_id" value="{{ console.id }}">
+                    <input id="hidden_checkbox_{{ console.id }}" class="checkbox" type="checkbox" name="console_id" value="{{ console.id }}">
                     <input type="hidden" name="user_id" value="{{ session['user_id'] }}">
 
                 </div>

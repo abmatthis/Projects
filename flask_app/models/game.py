@@ -11,7 +11,7 @@ class Game:
 
 
 
-    # Read Users Models
+    # Read Games Models
     @classmethod
     def get_games(cls):
         query = """
@@ -57,6 +57,17 @@ class Game:
         """
         results = connectToMySQL(cls.db).query_db(query, data)
         return results
+    
+    # Update Games Models
+
+    
+    # Delete Games Models
+    @classmethod
+    def delete_users_games(cls, id):
+        data = {"user_id" : id}
+        query = "DELETE FROM users_has_games WHERE user_id = %(user_id)s;"
+        connectToMySQL(cls.db).query_db(query, data)
+        return
     
     
 

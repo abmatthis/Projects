@@ -16,7 +16,7 @@ def console_select():
 
 # Update Users Controller
 @app.route('/select/console/process', methods = ['POST'])
-def update_users_console():
+def selecrt_users_console():
     if 'user_id' in session:
         consoles_list = request.form.getlist('console_id')
 
@@ -27,6 +27,21 @@ def update_users_console():
                 }
             console.Console.register_users_console(data)
         return redirect('/select/games')
+    return redirect('/')
+
+@app.route('/update/console/process', methods = ['POST'])
+def update_users_console():
+    if 'user_id' in session:
+        console.Console.delete_users_consoles(request.form.get('user_id'))
+        consoles_list = request.form.getlist('console_id')
+
+        for console_id in consoles_list:
+            data ={
+                'user_id' : request.form.get('user_id'),
+                'console_id' : console_id
+                }
+            console.Console.register_users_console(data)
+        return redirect(f'/edit/user_profile/{session["user_id"]}')
     return redirect('/')
 
 

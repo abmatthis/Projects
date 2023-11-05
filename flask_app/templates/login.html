@@ -10,29 +10,30 @@
 </head>
 <body>
     <div id="Login_and_Registration_wrapper">
-        <h1>LFG</h1>
-
-        <div id="login">
-            <h2>Login</h2>
-            <div>
-                {% with messages = get_flashed_messages(category_filter=["login"]) %}
-                    {% if messages %}
-                        {% for message in messages %}
-                        <p id="flash">{{message}}</p>
-                        {% endfor %}
-                    {% endif %}
-                {% endwith %}
-            </div>
-            <br>
-            <form action="/login" method="post" id="signin">
-                <label>
-                    Email:
-                    <input type="email" name="email" required>
-                </label>
-                <label>
-                    Password:
-                    <input type="password" name="password" required>
-                </label>
-                <button type="submit">Login</button>
-            </form> 
-            </div> 
+        <h1>Welcome back to LFG</h1>
+        <div id="forms">
+            <div id="login" >
+                <h2>Login</h2>
+                <div>
+                    {% with messages = get_flashed_messages(category_filter=["login"]) %}
+                        {% if messages %}
+                            {% for message in messages %}
+                            <p id="flash">{{message}}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                </div>
+                <br>
+                <form action="/login" method="post" id="signin">
+                    <label>
+                        Email:
+                        <input type="email" name="email" required>
+                    </label>
+                    <label>
+                        Password:
+                        <input type="password" name="password" required>
+                    </label>
+                    <button type="submit">Login</button>
+                </form> 
+        </div>
+    </div> 

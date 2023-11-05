@@ -32,6 +32,7 @@ def user_profile(user_id):
     this_users_games = game.Game.get_games_for_users()
     return render_template("user_profile.html", comments = these_comments, user = this_user, games = this_users_games)
 
+
 @app.route('/add/about_me')
 def create_about_me_page():
     if 'user_id' in session: 
@@ -40,10 +41,20 @@ def create_about_me_page():
 
 @app.route('/edit/user_profile/<int:user_id>')
 def edit_account_page(user_id):
-    this_user = user.User.get_user_by_id(user_id)
-    games  = game.Game.get_games_for_one_users(user_id)
-    consoles = console.Console.get_consoles_for_one_users(user_id)
-    return render_template("edit_profile.html", user = this_user, games = games, consoles = consoles)
+    if 'user_id' in session:
+        this_user = user.User.get_user_by_id(user_id)
+        games  = game.Game.get_games_for_one_users(user_id)
+        consoles = console.Console.get_consoles_for_one_users(user_id)
+        return render_template("edit_profile.html", user = this_user, games = games, consoles = consoles)
+    return redirect('/')
+
+@app.route('/find/gamers')
+def view_all_users():
+    users = user.User.get_all_users()
+    games = game.Game.get_games_for_users()
+    consoles = console.Console.get_consoles_for_users()
+    return render_template("view_all_users.html", users = users, games = games, consoles = consoles)
+
 
 
 
@@ -59,7 +70,15 @@ def update_about_me():
     if 'user_id' in session: 
         if user.User.add_about_me(request.form):
             return redirect(f'/user_profile/{session["user_id"]}')
+        
         return redirect('/add/about_me')
+    return redirect('/')
+
+@app.route('/update/user_info_password', methods = ['POST'])
+def update_user():
+    if 'user_id' in session:
+        user.User.update_user_password(request.form)
+        return redirect(f'/edit/user_profile/{session["user_id"]}')
     return redirect('/')
 
 
