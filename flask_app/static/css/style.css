@@ -195,6 +195,9 @@ h1{
     margin-left: 10px;
     color: #222246;
     background-color: #C7DCFE;
+    width: 120px;
+    min-height: 25px;
+
 }
 
 .btn:hover{

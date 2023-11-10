@@ -27,10 +27,12 @@ def login_screen():
 
 @app.route('/user_profile/<int:user_id>')
 def user_profile(user_id): 
-    these_comments = comment.Comment.get_comments()
-    this_user =user.User.get_user_by_id(user_id)
-    this_users_games = game.Game.get_games_for_users()
-    return render_template("user_profile.html", comments = these_comments, user = this_user, games = this_users_games)
+    if 'user_id' in session:
+        these_comments = comment.Comment.get_comments()
+        this_user =user.User.get_user_by_id(user_id)
+        this_users_games = game.Game.get_games_for_users()
+        return render_template("user_profile.html", comments = these_comments, user = this_user, games = this_users_games)
+    return redirect('/')
 
 
 @app.route('/add/about_me')
@@ -50,11 +52,12 @@ def edit_account_page(user_id):
 
 @app.route('/find/gamers')
 def view_all_users():
-    users = user.User.get_all_users()
-    games = game.Game.get_games_for_users()
-    consoles = console.Console.get_consoles_for_users()
-    return render_template("view_all_users.html", users = users, games = games, consoles = consoles)
-
+    if 'user_id' in session:
+        users = user.User.get_all_users()
+        games = game.Game.get_games_for_users()
+        consoles = console.Console.get_consoles_for_users()
+        return render_template("view_all_users.html", users = users, games = games, consoles = consoles)
+    return redirect('/')
 
 
 
