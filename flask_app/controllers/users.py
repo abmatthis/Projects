@@ -41,7 +41,7 @@ def create_about_me_page():
 
 @app.route('/edit/user_profile/<int:user_id>')
 def edit_account_page(user_id):
-    if 'user_id' in session:
+    if session["user_id"] == user_id:
         this_user = user.User.get_user_by_id(user_id)
         games  = game.Game.get_games_for_one_users(user_id)
         consoles = console.Console.get_consoles_for_one_users(user_id)

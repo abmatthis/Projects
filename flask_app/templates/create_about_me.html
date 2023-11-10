@@ -12,7 +12,9 @@
 <body>
     <div id="wrapper">
         <div id="navbar">
-            <img src="/static/images/logo.png" alt="LFG loge.png">
+            <div id="logo"> 
+                <img src="/static/images/new_logo.png" alt="LFG loge.png" class="logo">
+            </div>
             <div id="navbar-content">
                 <button class="btn" onclick="window.location.href='/user_profile/{{session.user_id }}'">My Profile</button>
                 <button class="btn" onclick="window.location.href='/logout'">Sign Out</button>
@@ -25,12 +27,12 @@
             {% with messages = get_flashed_messages(category_filter=["about_me"]) %}
                     {% if messages %}
                         {% for message in messages %}
-                            <p id="flash">{{message}}</p>
+                            <p id="about_me_flash">{{message}}</p>
                         {% endfor %}
                     {% endif %}
                 {% endwith %}
             <form action="/about_me/process" method="post" id="games_selecter_form">
-                <textarea id="comment_text_area" name="about_me" ></textarea>
+                <textarea id="about_me_text_area" name="about_me" ></textarea>
                 <input type="hidden" name="id" value="{{session.user_id }}">
                 
                 <div id="game_selector_nav">

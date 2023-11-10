@@ -23,41 +23,69 @@
                     gaming moments, helping players from around the world find their perfect group and take their 
                     gaming journeys to new heights. We believe that every gamer, no matter where they are or what 
                     they play, should have the opportunity to unite, strategize, and conquer as part of a community 
-                    that celebrates the joy of gaming." <br>- chatgpt</p>
+                    that celebrates the joy of gaming."
             </div>
             <div id="registration">
                 <h2>Create an Account</h2>
-                {% with messages = get_flashed_messages(category_filter=["registration"]) %}
-                    {% if messages %}
-                        {% for message in messages %}
-                            <p id="flash">{{message}}</p>
-                        {% endfor %}
-                    {% endif %}
-                {% endwith %}
                 <form action="/register" method="post" id="register">
+                
+                        {% with username_messages = get_flashed_messages(category_filter=["username"]) %}
+                            {% if username_messages %}
+                                {% for message in username_messages %}
+                                <p id="flash">{{message}}</p>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
                     <label>
                         Username:
                         <input type="text" name="username" placeholder="Minimum 2 charaters" required>
                     </label>
+
+                        {% with email_messages = get_flashed_messages(category_filter=["email"]) %}
+                            {% if email_messages %}
+                                {% for message in email_messages %}
+                                <p id="flash">{{message}}</p>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
                     <label>
                         Email:
                         <input type="email" name="email"  placeholder="example@email.com" required>
                     </label>
+                    
+                    
+                        {% with password_messages = get_flashed_messages(category_filter=["password"]) %}
+                            {% if password_messages %}
+                                {% for message in password_messages %}
+                                <p id="flash">{{message}}</p>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
                     <label>
                         Password:
                         <input type="password" name="password" placeholder="Minimum 8 charaters" required>
                     </label>
+
+                    
+                        {% with confirm_password_messages = get_flashed_messages(category_filter=["confirm_password"]) %}
+                            {% if confirm_password_messages %}
+                                {% for message in confirm_password_messages %}
+                                <p id="flash">{{message}}</p>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
                     <label>
-                        Confirm Password:
+                        Confirm:
                         <input type="password" name="confirm_password" placeholder="Must match password" required> 
                     </label>
                     <div class="button">
                         <button type="submit">Create Account!</button>
                     </div> 
-                    <a href="/returning_user"><p>Already have and Account?</p></a>
+                    <p><a href="/returning_user">Already have and Account?</a></p>
+                    <p>By Creating an account, you agree to our User Agreement and acknowledge reading our User Privacy Notice.</p>
                 </form> 
                 <br>
-                By Creating an account, you agree to our User Agreement and acknowledge reading our User Privacy Notice.
+                
             </div>
         </div>
     </div>

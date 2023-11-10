@@ -32,16 +32,18 @@ function hide_add_comment(e){
 
 
 
-function toggleCheckbox(id, consoles_selecter_id) {
+function toggleCheckbox(id, selecter_id) {
     var checkbox = document.getElementById(id);
     checkbox.checked = !checkbox.checked; 
 
     if (checkbox.checked){
-        document.getElementById(consoles_selecter_id).style.borderStyle = "solid";
-        document.getElementById(consoles_selecter_id).style.borderColor = "#51d6ff";
-        document.getElementById(consoles_selecter_id).style.borderRadius = "15px";
+        document.getElementById(selecter_id).style.borderStyle = "solid";
+        document.getElementById(selecter_id).style.backgroundColor = "#C7DCFE";
+        document.getElementById(selecter_id).style.borderRadius = "15px";
     }else{
-        document.getElementById(consoles_selecter_id).style.borderStyle = "";
-        document.getElementById(consoles_selecter_id).style.borderColor = "";
+        document.getElementById(selecter_id).style.borderStyle = "";
+        document.getElementById(selecter_id).style.backgroundColor = "";
+        document.getElementById(selecter_id).style.borderColor = "";
     }
 }
+

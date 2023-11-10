@@ -8,12 +8,16 @@
     <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}" defer></script>
     <title>{{ session['username'] }}'s  Lfg Profile</title>
 </head>
+<script> 
+    window.addEventListener("load", border_display_on_selcet);
+</script>
+
 <body>
     <div id="wrapper">
 
         <div id="navbar">
             <div>
-                <img src="/static/images/logo.png" alt="LFG loge.png">
+                <img src="/static/images/new_logo.png" alt="LFG loge.png" class="logo">
             </div>
             <div id="navbar-content">
                 <button class="btn" onclick="window.location.href='/find/gamers'">Find Gamers!</button>
@@ -26,10 +30,11 @@
         <div id="main">
             <div id="Profile_column">
                 <div id="profile_picture">
-                    <img src="/static/images/profile_pic.jpg" alt="profile pic">
-                    {% if user.id == session['user_id'] %}
-                        <button class="btn">Upload Picture</button>
-                    {% endif %}
+                    <img src="/static/images/profile_pic.jpg" alt="profile pic" id="profile_image">
+                        <button class="btn" onclick="show_update_form('hidden_upload'); hide_edit_btn(this)" >Upload Picture</button>
+                        <form id="hidden_upload" method="post">
+                            <input  type = "file" name = "upload" accept = "image/*" />
+                        </form>
 
                 </div>
                 {% with messages = get_flashed_messages(category_filter=["update_user"]) %}
@@ -58,47 +63,50 @@
             </div>
             <div id="contents">
                 <h2>About Me</h2>
-                <form action="/about_me/process" method="post">
-                    <textarea id="comment_text_area" name="about_me" >{{ user.about_me }}</textarea>
-                    <input type="hidden" name="id" value="{{session.user_id }}">
-                    <button type="submit" class="btn edit_pg" onclick="alert('About me update successful')">Update About Me</button>
-                </form>
-                <hr>
-                <br>
-
+                <div>
+                    <form action="/about_me/process" method="post">
+                        <textarea id="edit_comment_text_area" name="about_me" >{{ user.about_me }}</textarea>
+                        <input type="hidden" name="id" value="{{session.user_id }}">
+                        <button type="submit" class="btn edit_pg btn_right" onclick="alert('About me update successful')">Update About Me</button>
+                    </form>
+                </div>
+                <hr id="hr_spacing">
                 <h2>I Play . . .</h2>
-                <form action='/update/game/process' id="games_selecter_form" method="post">
-                    {% set unique_game_ids = [] %}
-                    {% for game in games %}
-                        {% if game.id not in unique_game_ids %}
-                            <div class="edit_games_selecter">
-                                <img src="/static/images/games/{{ game.image }}" alt="{{ game.name }}" id="edit_game_image">
-                                <input type="checkbox" name="game_id" value="{{ game.id }}" {% if game.user_id == session.user_id %} checked {% endif %}>
-                                <input type="hidden" name="user_id" value="{{ session['user_id'] }}">
-                            </div>
-                            {% set _ = unique_game_ids.append(game.id) %}
-                        {% endif %}
-                    {% endfor %}
-                    <button type="submit" class="btn edit_pg" onclick="alert('Games update successful')">Confirm Games</button>
-                </form>
+                <div id="edit_games_section" class="section">
+                    <form action='/update/game/process' id="games_selecter_form" method="post">
+                        {% set unique_game_ids = [] %}
+                        {% for game in games %}
+                            {% if game.id not in unique_game_ids %}
+                                <div class="edit_games_selecter">
+                                    <img src="/static/images/games/{{ game.image }}" alt="{{ game.name }}" id="edit_game_image">
+                                    <input type="checkbox" name="game_id" value="{{ game.id }}" {% if game.user_id == session.user_id %} checked {% endif %}>
+                                    <input type="hidden" name="user_id" value="{{ session['user_id'] }}">
+                                </div>
+                                {% set _ = unique_game_ids.append(game.id) %}
+                            {% endif %}
+                        {% endfor %}
+                        <button type="submit" class="btn edit_pg" onclick="alert('Games update successful')">Confirm Games</button>
+                    </form>
+                </div>
 
                 <h2>I Play On . . .</h2>
-                <form action='/update/console/process' id="consoles_selecter_form" method="post">
-                    {% set unique_console_ids = [] %}
-                        {% for console in consoles %}
-                            {% if console.id not in unique_console_ids %}
-                            <div class="edit_consoles_selecter">
-                                <img src="/static/images/consoles/{{ console.image }}" alt="{{ console.name }}" id="edit_console_image">
-                                <input type="checkbox" name="console_id" value="{{ console.id }}" {% if console.user_id == session.user_id %} checked {% endif %}>
-                                <input type="hidden" name="user_id" value="{{ session['user_id'] }}">
-                            </div>
-                            {% set _ = unique_console_ids.append(console.id) %}
-                        {% endif %}
-                    {% endfor %}
-                    <button type="submit" class="btn edit_pg" onclick="alert('Console update successful')">Confirm Consoles</button>
-                </form>
-                <hr>
-                <hr>
+                <div id="edit_consoles_section" class="section">
+                    <form action='/update/console/process' id="consoles_selecter_form" method="post">
+                        {% set unique_console_ids = [] %}
+                            {% for console in consoles %}
+                                {% if console.id not in unique_console_ids %}
+                                <div class="edit_consoles_selecter">
+                                    <img src="/static/images/consoles/{{ console.image }}" alt="{{ console.name }}" id="edit_console_image">
+                                    <input type="checkbox" name="console_id" value="{{ console.id }}" {% if console.user_id == session.user_id %} checked {% endif %}>
+                                    <input type="hidden" name="user_id" value="{{ session['user_id'] }}">
+                                </div>
+                                {% set _ = unique_console_ids.append(console.id) %}
+                            {% endif %}
+                        {% endfor %}
+                        
+                        <button type="submit" class="btn edit_pg" onclick="alert('Console update successful')">Confirm Consoles</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

@@ -32,8 +32,8 @@ class User:
             return False
         user_info = cls.parse_user_data(form)
         query = """
-        INSERT INTO users ( username, email, password )
-        VALUES ( %(username)s, %(email)s, %(password)s)
+        INSERT INTO users ( username, email, password, about_me )
+        VALUES ( %(username)s, %(email)s, %(password)s, %(about_me)s)
         ;"""
         results = connectToMySQL(cls.db).query_db(query, user_info)
         session['user_id'] = results
@@ -81,6 +81,19 @@ class User:
         if results:
             return cls(results[0])
         return False
+    
+    @classmethod
+    def get_user_by_username(cls, username):
+        data = { 'username' : username }
+        query = """
+        SELECT *
+        FROM users
+        WHERE username = %(username)s
+        ;"""
+        results = connectToMySQL(cls.db).query_db(query, data)
+        if results:
+            return cls(results[0])
+        return False
 
 
 
@@ -122,23 +135,26 @@ class User:
 
         # Name Validate
         if len(data['username']) < 2:
-            flash('Username must be at least two letters!', 'registration')
+            flash('Username must be at least two letters!', 'username')
+            is_valid = False
+        if User.get_user_by_username(data['username']):
+            flash('This Username is taken, sorry', 'username')
             is_valid = False
 
         # Email Validate
         if not EMAIL_REGEX.match(data['email']):
-            flash('Please use a valid email address!', 'registration')
+            flash('Please use a valid email address!', 'email')
             is_valid = False
         if User.get_user_by_email(data['email']):
-            flash('This email is already in use. Please try again', 'registration')
+            flash('This email is already in use. Please try again', 'email')
             is_valid = False
 
         # Password Validate
         if len(data['password']) < 8:
-            flash('Password must be at least 8 charaters long!', 'registration')
+            flash('Password must be at least 8 charaters long!', 'password')
             is_valid = False
         if data['password'] != data['confirm_password']:
-            flash('Passwords did not match', 'registration')
+            flash('Passwords did not match', 'confirm_password')
             is_valid = False
         return is_valid
     
@@ -152,7 +168,7 @@ class User:
             parsed_data['id'] = None
     
         if 'username' in data:
-            parsed_data['username'] = data['username']
+            parsed_data['username'] = (data['username']).capitalize()
         else:
             parsed_data['username'] = None
         
@@ -161,6 +177,8 @@ class User:
         else:
             parsed_data['email'] = None
         
+        parsed_data['about_me'] = ''
+
         parsed_data['password'] = bcrypt.generate_password_hash(data['password'])
         parsed_data['confirm_password'] = bcrypt.generate_password_hash(data['confirm_password'])
 
@@ -183,7 +201,7 @@ class User:
     def validate_user_about_me(data):
         is_valid = True
         if len(data['about_me']) <= 0:
-            flash('Can not be blank. If you don not want to write about yourself you can click the skip at the bottom of the screen and do it later!', 'about_me')
+            flash('If you do not want to write about yourself you can click the skip at the bottom of the screen and do it later!', 'about_me')
             is_valid = False
         return is_valid
     

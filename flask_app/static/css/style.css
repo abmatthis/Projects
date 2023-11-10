@@ -1,13 +1,36 @@
-html {
-    background-color: #f7f7f7;
-    color: #51d6ff;
-}
-p {
-    color: #24272B;
+/* #222246 */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #070720;
+    color: #ffffff;
 }
 
-h1{
+body {
+    margin: 0;
+}
+
+#wrapper{
+    background-color: #191937;
+    min-height: 100%;
+    padding: 0px 15px 0px 15px;
+    border-left-style: outset;
+    border-left-color: #222246;
+    border-right-style: inset;
+    border-right-color: #222246;
+}
+
+p {
+    color: #ffffff;
+}
+
+/* h1{
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+} */
+
+h1{
+    color: #C7DCFE;
 }
 
 #wrapper{
@@ -35,13 +58,14 @@ h1{
 }
 
 .span_color{
-    color: #51d6ff;
+    color: #C7DCFE;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
 #registration h2, #login h2{
     font-size: 40px;
     margin-top: 5px;
+    color: #C7DCFE;
 }
 #registration, #login{
     display: flex;
@@ -50,13 +74,27 @@ h1{
     align-items: center;
     margin-left: 50px;
     margin-right: 50px;
-    border: #51d6ff;
+    border: #222246;
+    border-style: outset;
     border-style: solid;
+    border-radius: 15px;
     padding: 40px;
     width: 400px;
+    background-color: #222246;
 }
 #registration label, #login label{
-    color: #24272B;
+    color: #ffffff;
+    font-size: 18px;
+}
+
+#registration a, #login a{
+    color: #C7DCFE;
+    text-decoration: none;
+}
+
+#registration a:hover, #login a:hover{
+    color: #ffffff;
+
 }
 
 #register{
@@ -70,6 +108,15 @@ h1{
     margin-right: 150px;
     width: 400px;
     height: 200px;
+    
+}
+
+#flash, #register p{
+    margin: 3px 0px 0px 0px;
+}
+
+#register hr{
+    margin-top: 2px;
 }
 
 #signin{
@@ -85,10 +132,15 @@ h1{
     height: 100px;
 }
 
+#signin label{
+    margin: 3px;
+}
+
 .button{
     display: flex;
     width: 170px;
     justify-content: space-between;
+    margin-top: 10px;
 }
 
 /* headers */
@@ -103,14 +155,14 @@ h1{
     justify-content: space-between;
     width: 1080px;
     align-items: center;
-    color: white;
-    height: 80px;
+    color: #ffffff;
+    height: 120px;
     padding: 0px 10px;
 
 }
 
 #navbar-content{
-    color: rgb(255, 255, 255);
+    color: #ffffff;
     height: 70px;
     margin-bottom: 0px;
     margin-left: 10px;
@@ -119,6 +171,17 @@ h1{
     align-items: center;
     
 }
+
+#logo{
+    padding: 5px 0px 5px 0px;
+
+}
+.logo{
+    width: 30%;
+    height: 30%;
+    margin: 5px 0px 5px 0px;
+}
+
 .nav-links{
     width: 500px;
     display: flex;
@@ -128,15 +191,15 @@ h1{
 }
 .btn{
     border-radius: 10px;
-    border-color: #51d6ff;
-    color: black;
-    background-color: rgb(255, 255, 255);
-    margin-left: 10px
+    border-color: #C7DCFE;
+    margin-left: 10px;
+    color: #222246;
+    background-color: #C7DCFE;
 }
 
 .btn:hover{
-    color: #ffffff;
-    background-color: #51d6ff;
+    color: #C7DCFE;
+    background-color: #222246;
 }
 
 /* console and games select */
@@ -167,7 +230,7 @@ h1{
 }
 
 .consoles_selecter:hover{
-    border-color: #51d6ff;
+    border-color: #C7DCFE;
     border-style: solid;
     border-width: 5px;
     border-radius: 15px;
@@ -185,12 +248,13 @@ h1{
 }
 
 .games_selecter:hover{
-    border-color: #51d6ff;
+    border-color: #C7DCFE;
     border-style: solid;
     border-width: 5px;
     cursor: pointer;
     border-radius: 15px;
 }
+
 
 #console_selector_nav, #game_selector_nav{
     display: flex;
@@ -204,16 +268,25 @@ h1{
     font-size: 45px ;
     width: 500px;
     border-radius: 20px;
-    border-color: #51d6ff;
-    color: #51d6ff;
-    background-color: rgb(255, 255, 255);
+    border-color: #C7DCFE;
+    color: #C7DCFE;
+    background-color: #222246;
+    margin: 40px 0px 0px 0px;
 }
+
 #consoles_selecter_btns:hover, #games_selecter_btns:hover{
-    background-color: #51d6ff;
-    color: #ffffff;
+    background-color: #C7DCFE;
+    color: #222246;
 }
 #consoles_selecter_skip, #games_selecter_skip{
     font-size: 25px ;
+    margin: 10px 0px 40px 0px;
+    color: #C7DCFE;
+    text-decoration: none;
+}
+
+#consoles_selecter_skip:hover, #games_selecter_skip:hover{
+    color: #ffffff;
 }
 
 .checkbox{
@@ -226,10 +299,18 @@ h1{
     padding: 10px;
 }
 
+/*about me*/
+#about_me_flash{
+    font-size: 18px;
+}
 /* profile_page */
 #main{
     display: flex;
     justify-content: space-between;
+}
+
+#main a:hover{
+    color: #ffffff;
 }
 
 #Profile_column{
@@ -264,6 +345,35 @@ h1{
     font-size: 18px;
 }
 
+.section{
+    border: 5px solid transparent;
+    background-color: #222246;
+    margin: 10px 0px 10px 0px;
+    border-radius: 15px;
+}
+
+#Comments_section p{
+    padding-left: 30px;
+    margin: 7px 0px 5px 0px;
+}
+
+#Comments_section a{
+    color: #C7DCFE;
+    text-decoration: none;
+}
+
+#hr_spacing{
+    margin-top: 32.9px;
+}
+
+#games_section, #about_me_section{
+    padding: 10px 0px 0px 30px;
+}
+
+#edit_games_section, #edit_consoles_section{
+    padding: 10px 0px 20px 0px;
+}
+
 #profile_picture{
     margin-top: 24.9px;
     margin-bottom: 100px;
@@ -282,6 +392,10 @@ h1{
     font-size: 30px;
 }
 
+#profile_image{
+    border-radius: 15px;
+}
+
 .hiddendisplay{
     display: none;
 }
@@ -294,26 +408,25 @@ h1{
 }
 
 
-#comment_text_area{
-width: 100%;
+#comment_text_area, #about_me_text_area{
+    width: 100%;
     height: 150px;
     padding: 12px 20px;
     box-sizing: border-box;
     border: 2px solid #ccc;
-    border-radius: 4px;
+    border-radius: 15px;
     background-color: #f8f8f8;
     font-size: 16px;
     resize: none;
 }
 
-.comment_btn{
-    float: right
+#about_me_text_area{
+    width: 80%;
 }
 
-#following_box{
-    width: 150px;
-    background-color: aqua;
-    height: 500px;
+
+.comment_btn{
+    float: right
 }
 
 /* Edit Profile */
@@ -324,12 +437,35 @@ width: 100%;
     margin-top: 0px;
 }
 
+#edit_comment_text_area{
+    width: 100%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 5px solid #C7DCFE;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+}
+
 .edit_games_selecter{
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 120px;
+    border: 5px solid transparent;
+    cursor: pointer;
+    border-radius: 15px;
 }
+/* .edit_games_selecter:hover{
+    border-color: #51d6ff;
+    border: 5px solid ;
+    border-width: 5px;
+    cursor: pointer;
+    border-radius: 15px;
+} */
+
 
 .edit_consoles_selecter{
     display: flex;
@@ -350,7 +486,15 @@ width: 100%;
 }
 
 .edit_pg{
-    margin-top: 15px;
+    margin-top: 20px;
+}
+
+.btn_right{
+    margin: 5px 0px 0px 0px;
+    float: right;
+    display: block;
+
+
 }
 
 /* Veiw users */
@@ -359,13 +503,15 @@ width: 100%;
     justify-content: space-between;
     padding: 10px;
     border: 5px solid transparent;
+    background-color: #222246;
+    margin: 10px 0px 10px 0px;
+    border-radius: 15px;
 }
 
 .profiles_display:hover{
-    border-color: #51d6ff;
     cursor: pointer;
     padding: 10px;
-    border: 5px solid;
+    border: 5px solid #C7DCFE;
     border-radius: 15px;
 }
 
@@ -381,11 +527,13 @@ width: 100%;
     height: 125px;
     width: 125px;
     margin-right: 20px;
+    border-radius: 15px;
 }
 
-#all_gamers_game_image{
+#all_gamers_game_image, #all_gamers_console_image{
     height: 60px;
     width: 60px;
+    margin: 0px 3px 0px 3px;
 }
 
 #all_gamers_console{
@@ -394,10 +542,7 @@ width: 100%;
     align-items: first end;
 }
 
-#all_gamers_console_image{
-    height: 60px;
-    width: 60px;
-}
+
 
 #games_and_consoles{
     display: flex;

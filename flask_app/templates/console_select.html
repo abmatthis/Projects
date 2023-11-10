@@ -11,7 +11,9 @@
 <body>
     <div id="wrapper">
         <div id="navbar">
-            <img src="/static/images/logo.png" alt="LFG loge.png">
+            <div id="logo"> 
+                <img src="/static/images/new_logo.png" alt="LFG loge.png" class="logo">
+            </div>
             <div id="navbar-content">
                 <button class="btn" onclick="window.location.href='/user_profile/{{session.user_id }}'">My Profile</button>
                 <button class="btn" onclick="window.location.href='/logout'">Sign Out</button>
@@ -27,11 +29,11 @@
                     <img src="/static/images/consoles/{{ console.image }}" alt="{{ console.name }}" id="console_image">
                     <input id="hidden_checkbox_{{ console.id }}" class="checkbox" type="checkbox" name="console_id" value="{{ console.id }}">
                     <input type="hidden" name="user_id" value="{{ session['user_id'] }}">
-
                 </div>
                 {% endfor%}
+
                 <div id="console_selector_nav">
-                    <br><br>
+
                     <button type="submit" id="consoles_selecter_btns">Continue</button>
                     <br>
                     <a href="/select/games" id="consoles_selecter_skip">skip</a>

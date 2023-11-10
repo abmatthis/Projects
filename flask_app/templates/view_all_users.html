@@ -12,7 +12,7 @@
     <div id="wrapper">
         <div id="navbar">
             <div>
-                <img src="/static/images/logo.png" alt="LFG loge.png">
+                <img src="/static/images/new_logo.png" alt="LFG loge.png" class="logo">
             </div>
             <div id="navbar-content">
                 {% if session.user_id %}
@@ -27,34 +27,35 @@
         <hr>
 
         <h1 id="consoles_selecter_header">All Gamers</h1>
-
+        <div id="container">
         {% for user in users %}
         {% if user.id != session.user_id %}
-        <div class="profiles_display" onclick="window.location.href='/user_profile/{{ user.id }}'" onmouseover="hover_border(this)" onmouseleave="unhover_border(this)">
-            <div id="blah">
-                <img src="/static/images/profile_pic.jpg" alt="profile pic" class="profile_pics">
-                <h2>{{ user.username }}</h2>
-            </div>
-            <div id="games_and_consoles">
-                <div>
-                {% for game in games %}
-                    {% if user.id == game.user_id %}
-                    <img src="/static/images/games/{{ game.image }}" alt="{{ game.name }}" id="all_gamers_game_image">
-                    {% endif %}
-                {% endfor %}
+            <div class="profiles_display" onclick="window.location.href='/user_profile/{{ user.id }}'">
+                <div id="blah">
+                    <img src="/static/images/profile_pic.jpg" alt="profile pic" class="profile_pics">
+                    <h2>{{ user.username }}</h2>
                 </div>
-                <div id="all_gamers_console">
-                    {% for console in consoles %}
-                    {% if user.id == console.user_id %}
-                    <img src="/static/images/consoles/{{ console.image }}" alt="{{ console.name }}" id="all_gamers_console_image">
-                    {% endif %}
-                {% endfor %}
+                <div id="games_and_consoles">
+                    <div>
+                    {% for game in games %}
+                        {% if user.id == game.user_id %}
+                        <img src="/static/images/games/{{ game.image }}" alt="{{ game.name }}" id="all_gamers_game_image">
+                        {% endif %}
+                    {% endfor %}
+                    <hr>
+                    </div>
+                    <div id="all_gamers_console">
+                        {% for console in consoles %}
+                        {% if user.id == console.user_id %}
+                        <img src="/static/images/consoles/{{ console.image }}" alt="{{ console.name }}" id="all_gamers_console_image">
+                        {% endif %}
+                    {% endfor %}
+                    </div>
                 </div>
             </div>
-        </div>
-        <hr>
         {% endif %}
         {% endfor %}
+        </div>
     </div>
 </body>
 </html>

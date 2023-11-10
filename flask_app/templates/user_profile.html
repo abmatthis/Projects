@@ -12,8 +12,8 @@
     <div id="wrapper">
 
         <div id="navbar">
-            <div>
-                <img src="/static/images/logo.png" alt="LFG loge.png">
+            <div id="logo"> 
+                <img src="/static/images/new_logo.png" alt="LFG loge.png" class="logo">
             </div>
             <div id="navbar-content">
                 <button class="btn" onclick="window.location.href='/find/gamers'">Find Gamers!</button>
@@ -37,58 +37,61 @@
         <div id="main">
             <div id="Profile_column">
                 <div id="profile_picture">
-                    <img src="/static/images/profile_pic.jpg" alt="profile pic">
-                    {% if user.id == session['user_id'] %}
-                        <button class="btn" onclick="show_update_form('hidden_upload'); hide_edit_btn(this)" >Upload Picture</button>
-                        <form id="hidden_upload" method="post">
-                            <input  type = "file" name = "upload" accept = "image/*" />
-                        </form>
-                    {% endif %}
+                    <img src="/static/images/profile_pic.jpg" alt="profile pic" id="profile_image">
                     <p>{{ user.username }}</p>
                 </div>
             </div>
             <div id="contents">
                 <h2>About Me</h2>
-                {% if user.about_me != None  %}
-                    <p>{{ user.about_me }}</p>
-                {% endif %}
+                <hr>
+                    <div id="about_me_section" class="section">
+                    {% if user.about_me != "none" %}
+                        <p>{{ user.about_me }}</p>
+                    {% endif %}
+                    </div>
                 <hr>
                 <br>
                 <h2>Games I Play</h2>
-                {% for game in games %}
-                    {% if game.user_id == user.id %}
-                        <img src="/static/images/games/{{ game.image }}" alt="{{ game.name }}" id="profile_game_image">
-                    {% endif %}
-                {% endfor %}
+                <hr>
+                <div id="games_section" class="section">
+                    {% for game in games %}
+                        {% if game.user_id == user.id %}
+                            <img src="/static/images/games/{{ game.image }}" alt="{{ game.name }}" id="profile_game_image">
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
                 <hr>
                 <h3>Comments</h3>
+                <hr>
                 {% for comment in comments %}
                     {% if comment.commenti_id == user.id %}
-                    <hr>
-                        <P><strong>{{ comment.commenter.username }}</strong> -- <em>{{ comment.created_at }}</em> 
+                        <div id="Comments_section" class="section">
+                        <a href="/user_profile/{{ comment.commenter.id }}"><strong>{{ comment.commenter.username }}</strong></a> -- <em>{{ comment.created_at }}</em> 
                             {% if comment.commenter.id == session['user_id'] %}
-                                <button class="btn" onclick="show_update_form('update_form_{{comment.comment_id}}'); hide_edit_btn(this); hide_comment_body('comment_body_{{comment.comment_id}}')" id="edit_comment_btn_{{comment.comment_id}}">Edit</button>
-                                <button class="btn" onclick="window.location.href='/remove_comment/{{ comment.comment_id }}'">Delete</button>
+                                <button class="comment_btn btn" onclick="show_update_form('update_form_{{comment.comment_id}}'); hide_edit_btn(this); hide_comment_body('comment_body_{{comment.comment_id}}')" id="edit_comment_btn_{{comment.comment_id}}">Edit</button>
+                                <button class="comment_btn btn" onclick="window.location.href='/remove_comment/{{ comment.comment_id }}'">Delete</button>
                             {% endif %}
-                            <br></P>
-                        <p id="comment_body_{{comment.comment_id}}">{{ comment.body }} 
-                            {% if comment.created_at != comment.updated_at %}
-                                <em>(Edited)</em> 
-                            {% endif %}
-                        </p>
-                        <form action="/comment/update/process" id="update_form_{{comment.comment_id}}" class="hiddendisplay" method="post">
-                            <textarea id="comment_text_area" name="body" >{{ comment.body }}</textarea>
-                            <input type="hidden" name="id" value="{{ comment.comment_id }}">
-                            <input type="hidden" name="commenti_id" value="{{ user.id }}">
                             <br>
-                            <button type="reset" class="comment_btn btn" onclick="hide_comment_form('comment_body_{{comment.comment_id}}'); show_comment_body('update_form_{{comment.comment_id}}'); show_edit_btn('edit_comment_btn_{{comment.comment_id}}') ">Cancel</button>
-                            <button type="submit" class="comment_btn btn">Edit</button>
-                            <br>
-                        </form>
+                            <p id="comment_body_{{comment.comment_id}}">{{ comment.body }} 
+                                {% if comment.created_at != comment.updated_at %}
+                                    <em>(Edited)</em> 
+                                {% endif %}
+                            </p>
+                            <form action="/comment/update/process" id="update_form_{{comment.comment_id}}" class="hiddendisplay" method="post">
+                                <textarea id="comment_text_area" name="body" >{{ comment.body }}</textarea>
+                                <input type="hidden" name="id" value="{{ comment.comment_id }}">
+                                <input type="hidden" name="commenti_id" value="{{ user.id }}">
+                                <br>
+                                <button type="reset" class="comment_btn btn" onclick="hide_comment_form('comment_body_{{comment.comment_id}}'); show_comment_body('update_form_{{comment.comment_id}}'); show_edit_btn('edit_comment_btn_{{comment.comment_id}}') ">Cancel</button>
+                                <button type="submit" class="comment_btn btn">Edit</button>
+                                <br>
+                            </form>
+                        </div>
                     {% endif %}
                 {% endfor %}
-            
                 <hr>
+
                 <div>
                     {% if session['user_id'] %}
                     <button onclick="show_comment_form('comment_form'); hide_add_comment(this)" class="comment_btn btn">Add Comment</button>
@@ -99,7 +102,7 @@
                         <input type="hidden" name="commenti_id" value="{{ user.id }}">
                         <textarea id="comment_text_area" name="body"></textarea>
 
-                        <button class="btn" type="submit" class="comment_btn">Send</button>
+                        <button class="comment_btn btn" type="submit">Send</button>
                     </form>
                 </div>
             </div>

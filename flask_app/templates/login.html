@@ -12,7 +12,7 @@
     <div id="Login_and_Registration_wrapper">
         <h1>Welcome back to LFG</h1>
         <div id="forms">
-            <div id="login" >
+            <div id="login">
                 <h2>Login</h2>
                 <div>
                     {% with messages = get_flashed_messages(category_filter=["login"]) %}
@@ -36,5 +36,8 @@
                     <button type="submit">Login</button>
                     <a href="/"><p>Oops! Need to make an account?</p></a>
                 </form> 
+            </div>
         </div>
     </div> 
+</body>
+</html>
