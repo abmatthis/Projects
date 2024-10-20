@@ -53,24 +53,25 @@
                 <br>
                 <h2>Games I Play</h2>
                 <hr>
-                <div id="games_section" class="section">
+                <div id="games_section" class="section" >
                     {% for game in games %}
                         {% if game.user_id == user.id %}
-                            <img src="/static/images/games/{{ game.image }}" alt="{{ game.name }}" id="profile_game_image">
+                            <img src="/static/images/games/{{ game.image }}" alt="{{ game.name }}" id="profile_game_image" class="games_selecter_profile">
                         {% endif %}
                     {% endfor %}
                 </div>
 
                 <hr>
                 <h3>Comments</h3>
-                <hr>
                 {% for comment in comments %}
                     {% if comment.commenti_id == user.id %}
+                    <hr>
                         <div id="Comments_section" class="section">
-                        <a href="/user_profile/{{ comment.commenter.id }}"><strong>{{ comment.commenter.username }}</strong></a> -- <em>{{ comment.created_at }}</em> 
+                        <a href="/user_profile/{{ comment.commenter.id }}"><strong>{{ comment.commenter.username }}</strong></a> -- <em>{{ comment.created_at }}</em> <button class="comment_btn btn" onclick="window.location.href='/remove_comment/{{ comment.comment_id }}'">Reply</button>
                             {% if comment.commenter.id == session['user_id'] %}
-                                <button class="comment_btn btn" onclick="show_update_form('update_form_{{comment.comment_id}}'); hide_edit_btn(this); hide_comment_body('comment_body_{{comment.comment_id}}')" id="edit_comment_btn_{{comment.comment_id}}">Edit</button>
                                 <button class="comment_btn btn" onclick="window.location.href='/remove_comment/{{ comment.comment_id }}'">Delete</button>
+                                <button class="comment_btn btn" onclick="show_update_form('update_form_{{comment.comment_id}}'); hide_edit_btn(this); hide_comment_body('comment_body_{{comment.comment_id}}')" id="edit_comment_btn_{{comment.comment_id}}">Edit</button>
+                                
                             {% endif %}
                             <br>
                             <p id="comment_body_{{comment.comment_id}}">{{ comment.body }} 
@@ -78,6 +79,7 @@
                                     <em>(Edited)</em> 
                                 {% endif %}
                             </p>
+                            
                             <form action="/comment/update/process" id="update_form_{{comment.comment_id}}" class="hiddendisplay" method="post">
                                 <textarea id="comment_text_area" name="body" >{{ comment.body }}</textarea>
                                 <input type="hidden" name="id" value="{{ comment.comment_id }}">
@@ -88,10 +90,24 @@
                                 <br>
                             </form>
                         </div>
+                            <!-- {% for reply in replies %}
+                            {{ reply.responder.username }}
+                                {% if reply.original_post_id == comment.comment_id %}
+                                
+                            <div id="Replies_section" class="section">
+                            <a href="/user_profile/{{ comment.commenter.id }}"><strong> {{ reply.responder.username }} </strong></a> -- <em>{{ reply.created_at }} </em> <button class="comment_btn btn" onclick="window.location.href='/remove_comment/{{ comment.comment_id }}'">Reply</button>
+
+                            <p id="reply_body_{{reply.response_id}}"> <span>@{{ comment.commenter.username }}</span> {{ reply.body }} 
+                                    {% if reply.created_at != reply.updated_at %}
+                                    <em>(Edited)</em> 
+                                    {% endif %}
+                            </p>
+                            </div>
+                                {% endif %}
+                            {% endfor%} -->
                     {% endif %}
                 {% endfor %}
                 <hr>
-
                 <div>
                     {% if session['user_id'] %}
                     <button onclick="show_comment_form('comment_form'); hide_add_comment(this)" class="comment_btn btn">Add Comment</button>

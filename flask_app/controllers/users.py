@@ -1,6 +1,6 @@
 from flask_app import app
 from flask import render_template, redirect, request, session
-from flask_app.models import user, comment, game, console
+from flask_app.models import user, comment, game, console, reply
 
 # Create Users Controller
 @app.route('/register', methods = ['POST'])
@@ -29,9 +29,15 @@ def login_screen():
 def user_profile(user_id): 
     if 'user_id' in session:
         these_comments = comment.Comment.get_comments()
+        these_replies = reply.Reply.get_replies()
         this_user =user.User.get_user_by_id(user_id)
         this_users_games = game.Game.get_games_for_users()
-        return render_template("user_profile.html", comments = these_comments, user = this_user, games = this_users_games)
+        return render_template("user_profile.html", 
+                                comments = these_comments, 
+                                user = this_user, 
+                                games = this_users_games,
+                                replies = these_replies)
+    # print(these_replies, "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
     return redirect('/')
 
 

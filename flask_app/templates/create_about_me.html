@@ -23,7 +23,9 @@
         <hr>
         <h1 id="games_selecter_header">Just a bit more...</h1>
         <br>
+        
         <div>
+            <h3>Tell us about yourself</h3>
             {% with messages = get_flashed_messages(category_filter=["about_me"]) %}
                     {% if messages %}
                         {% for message in messages %}

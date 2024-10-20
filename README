@@ -1,0 +1,6 @@
+How to run
+
+1. Start at directory of project
+1. Install pipenv `python -m pip install pipenv`
+1. Create a virtue environment by using `python -m pipenv shell`
+1. Run server.py `python server.p`

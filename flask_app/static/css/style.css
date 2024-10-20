@@ -258,6 +258,18 @@ h1{
     border-radius: 15px;
 }
 
+.games_selecter_profile{
+    border: 5px solid transparent;
+}
+
+.games_selecter_profile:hover{
+    border-color: #C7DCFE;
+    border-style: solid;
+    border-width: 5px;
+    cursor: pointer;
+    border-radius: 15px;
+}
+
 
 #console_selector_nav, #game_selector_nav{
     display: flex;
@@ -355,14 +367,19 @@ h1{
     border-radius: 15px;
 }
 
-#Comments_section p{
+#Comments_section p, #Replies_section p{
     padding-left: 30px;
     margin: 7px 0px 5px 0px;
 }
 
-#Comments_section a{
+#Comments_section a, #Replies_section a, #Replies_section span{
     color: #C7DCFE;
     text-decoration: none;
+}
+
+#Replies_section{
+    width: 80%;
+    margin-left: auto;
 }
 
 #hr_spacing{

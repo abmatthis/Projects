@@ -1,51 +1,50 @@
-
 from flask_app import app
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask import flash, session
-from flask_app.models import user
+from flask_app.models import user, comment
 
 
 
-class Comment:
+class Reply:
     db = "LFG_Schema" 
     def __init__(self, data):
-        self.comment_id = data['comment_id']
+        self.response_id = data['response_id']
         self.body = data['body']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
-        self.commenter_id = data['commenter_id']
-        self.commenti_id = data['commenti_id']
-        self.commenter = None
+        self.comment_id = data['comment_id']
+        self.responder_id = data['responder_id']
+        self.responder = None
 
-    
-    # Create Users Models
+
+    # Create Replies Models
     @classmethod
-    def leave_comment(cls, data):
-        if not cls.validate_comment(data):
+    def leave_reply(cls, data):
+        if not cls.validate_reply(data):
             return False
         query = """
-        INSERT INTO comments ( commenter_id, commenti_id, body)
-        VALUES ( %(commenter_id)s, %(commenti_id)s, %(body)s)
+        INSERT INTO replies ( comment_id, responder_id, body)
+        VALUES ( %(comment_id)s, %(responder_id)s, %(body)s)
         ;"""
         results = connectToMySQL(cls.db).query_db(query, data)
         return results
     
-    #Read User Models
+    #Read Replies Models
     @classmethod
-    def get_comments(cls):
+    def get_replies(cls):
         query = """
         SELECT *
-        FROM comments 
-        JOIN users ON users.id = comments.commenter_id
-        JOIN users user2 On comments.commenti_id = user2.id 
-        ORDER BY comments.created_at ASC
+        FROM replies 
+        JOIN comments ON comments.comment_id = replies.original_post_id
+        JOIN users ON id  = replies.responder_id
+        ORDER BY comments.created_at ASC;
         ;"""
         results = connectToMySQL(cls.db).query_db(query)
-        comments = []
+        replies = []
 
         for database_row in results:
-            comment = cls(database_row)
-            commenter = {
+            reply = cls(database_row)
+            responder = {
                 "id" : database_row['id'],
                 "username" : database_row['username'],
                 "email" : database_row['email'],
@@ -55,25 +54,25 @@ class Comment:
                 "about_me" : database_row['about_me'],
                 
             }
-            comment.commenter = user.User(commenter)
-            comments.append(comment)
-        return comments
+            reply.responder = user.User(responder)
+            replies.append(reply)
+        return replies
+
     
-    @classmethod
-    def get_single_comment(cls, data):
+    def get_single_reply(cls, data):
         query = """
         SELECT *
-        FROM comments 
-        JOIN users ON users.id = comments.commenter_id
-        JOIN users user2 On comments.commenti_id = user2.id 
+        FROM replies 
+        JOIN comments ON comments.commenter_id = replies.comment_id
+        JOIN users On user.id  = replies.responder_id
         WHERE comment_id = %(id)s
         ;"""
         data = { 'id' : data}
         results = connectToMySQL(cls.db).query_db(query, data)
         results = results[0]
-        comment = cls(results)
+        reply = cls(results)
 
-        commenter = {
+        responder = {
                 "id" : results['id'],
                 "username" : results['username'],
                 "email" : results['email'],
@@ -83,18 +82,19 @@ class Comment:
                 "about_me" : results['about_me'],
 
             }
-        comment.commenter = user.User(commenter) 
-        return comment
+        reply.responder = user.User(responder) 
+        return reply
     
+
     # Update Users Models
     @classmethod
-    def edit_comment(cls, data):
-        if not cls.validate_comment(data):
+    def edit_reply(cls, data):
+        if not cls.validate_reply(data):
             return False
         query = """
-        UPDATE comments
+        UPDATE replies
         SET body = %(body)s
-        WHERE comment_id = %(id)s
+        WHERE response_id = %(id)s
         ;"""
         connectToMySQL(cls.db).query_db(query, data)
         return True
@@ -102,20 +102,19 @@ class Comment:
 
     # Delete Users Models
     @classmethod
-    def delete_comment(cls, comment_id):
-        data = { 'id' : comment_id}
+    def delete_reply(cls, response_id):
+        data = { 'id' : response_id}
         query = """
-        DELETE FROM comments
-        WHERE comment_id = %(id)s
+        DELETE FROM replies
+        WHERE response_id = %(id)s
         ;"""
         connectToMySQL(cls.db).query_db(query, data)
         return
-
-
     
-    #Users Helper Functions
+
+    #Replies Helper Models
     @staticmethod
-    def validate_comment(data):
+    def validate_reply(data):
         is_valid = True
         if len(data['body']) == 0:
             is_valid = False
